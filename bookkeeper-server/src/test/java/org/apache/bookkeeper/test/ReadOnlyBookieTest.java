@@ -45,7 +45,7 @@ import org.junit.Test;
  * Test to verify the readonly feature of bookies.
  */
 public class ReadOnlyBookieTest extends BookKeeperClusterTestCase {
-
+    @Before
     public ReadOnlyBookieTest() {
         super(2);
         baseConf.setLedgerStorageClass(InterleavedLedgerStorage.class.getName());

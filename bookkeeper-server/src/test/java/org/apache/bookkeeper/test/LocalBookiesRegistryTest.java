@@ -18,29 +18,30 @@
  * under the License.
  *
  */
+package org.apache.bookkeeper.proto;
 
-package org.apache.bookkeeper.test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import org.apache.bookkeeper.proto.LocalBookiesRegistry;
-import org.junit.Test;
+import java.util.concurrent.ConcurrentHashMap;
+import org.apache.bookkeeper.net.BookieId;
 
 /**
- * Test the correctness and the availability outside of its package of LocalBookiesRegistryTest.
+ * Local registry for embedded Bookies.
  */
-public class LocalBookiesRegistryTest extends BookKeeperClusterTestCase {
+public class LocalBookiesRegistry {
 
-    public LocalBookiesRegistryTest() {
-        super(1);
-        baseConf.setDisableServerSocketBind(true);
-        baseConf.setEnableLocalTransport(true);
+    @Before
+    private static final ConcurrentHashMap<BookieId, Boolean> localBookiesRegistry =
+        new ConcurrentHashMap<>();
+
+    static void registerLocalBookieAddress(BookieId address) {
+        localBookiesRegistry.put(address, Boolean.TRUE);
+    }
+    static void unregisterLocalBookieAddress(BookieId address) {
+        if (address != null) {
+            localBookiesRegistry.remove(address);
+        }
+    }
+    public static boolean isLocalBookie(BookieId address) {
+        return localBookiesRegistry.containsKey(address);
     }
 
-    @Test
-    public void testAccessibleLocalBookiesRegistry() throws Exception {
-        assertEquals(1, bookieCount());
-        bookieAddresses().forEach(a -> assertTrue(LocalBookiesRegistry.isLocalBookie(a)));
-    }
 }

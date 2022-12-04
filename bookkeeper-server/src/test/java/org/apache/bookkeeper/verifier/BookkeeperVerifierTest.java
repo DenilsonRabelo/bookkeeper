@@ -28,6 +28,7 @@ import org.junit.Test;
  * Test for BookKeeperVerifier.
  */
 public class BookkeeperVerifierTest extends BookKeeperClusterTestCase {
+    @Before
     public BookkeeperVerifierTest() {
         super(3);
     }

@@ -36,7 +36,7 @@ import org.mockito.Mockito;
 public class AbstractStatefulHashTest {
 
     private AbstractStatefulHash hash;
-
+    @Before
     public AbstractStatefulHashTest() {
         this.hash = mock(AbstractStatefulHash.class, Mockito.CALLS_REAL_METHODS);
     }

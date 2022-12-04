@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TestBookieAuthZFactory {
     private static final Logger LOG = LoggerFactory.getLogger(TestBookieAuthZFactory.class);
-
+    @Before
     public TestBookieAuthZFactory() {
     }
 
